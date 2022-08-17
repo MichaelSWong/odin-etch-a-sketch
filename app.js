@@ -1,23 +1,49 @@
 // Get Elements
-const container = document.querySelector('#container');
-let dynamic = [];
+let grid = document.querySelector('.grid');
+let gridSize = document.querySelector('.grid-size');
+let gridInput = document.querySelector('input');
+let applyGridSize = document.querySelector('.apply');
+const resetBtn = document.querySelector('.reset');
+let squareSize = 8;
 
-for (let i = 0; i <= 255; i++) {
-  dynamic[i] = document.createElement('div');
-  dynamic[i].setAttribute('class', `div${i}`);
-  container.appendChild(dynamic[i]);
-}
+const createDiv = (size) => {
+  const div = document.createElement('div');
+  div.classList.add('square');
+  div.style.width = `${size}px`;
+  div.style.height = `${size}px`;
+  return div;
+};
 
-function hover(element, className) {
-  element.addEventListener('mouseenter', (e) =>
-    element.classList.add(className)
-  );
-  element.addEventListener('mouseleave', (e) =>
-    element.classList.remove(className)
-  );
-}
+const createGrid = (gridSize) => {
+  for (let i = 0; i < gridSize; i++) {
+    for (let j = 0; j < gridSize; j++) {
+      grid.appendChild(createDiv(grid.clientWidth / gridSize));
+    }
+  }
+};
 
-dynamic.forEach((ele) => {
-  const classTest = `.${ele.className}`;
-  hover(document.querySelector(classTest), 'div-hover');
+const reset = () => {
+  while (grid.firstChild) {
+    grid.removeChild(grid.lastChild);
+  }
+  createGrid(squareSize);
+};
+
+grid.addEventListener('mouseover', (e) => {
+  if (e.target.matches('.square')) {
+    e.target.classList.add('active');
+  }
 });
+
+gridInput.addEventListener('input', (e) => {
+  squareSize = e.target.value;
+  gridSize.textContent = `${squareSize}x${squareSize}`;
+});
+
+applyGridSize.addEventListener('click', () => {
+  reset();
+});
+
+resetBtn.addEventListener('click', reset);
+
+createGrid(squareSize);
