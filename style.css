@@ -1,0 +1,35 @@
+#header {
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#contents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+    gap: 20px;
+}
+#controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#container {
+    border: 1px outset;
+    display: flex;
+    height: 400px;
+    width: 400px;
+    flex-wrap: wrap;
+}
+#container > div {
+    width: 25px;
+    height: 25px;
+    max-width: 25px;
+    max-height: 25px;
+}
+.div-hover {
+    background: black;
+}
